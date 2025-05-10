@@ -39,7 +39,7 @@
 
 - Also not sure how I'm supposed to access the maze. Right now it's not even passed as a parameter, so not testable.
 
-## 2:10
+## 2:10PM
 - Added a basic cell/3 function that takes the Map, a coordinate, and returns the value at that position.
 
 Map will be represented as a list of lists (row major).
@@ -57,7 +57,17 @@ I need to write a bounds checker too. Otherwise Prolog just fails silently or cr
 
 - After that, maybe a simulate function that goes through a list of actions?
 
-## 2:50
+## 2:50PM
 - Ok so I’ve got safe movement and basic map bounds checks.
 - Now I want to simulate moving through a list of actions. Like simulate([up, right, right]) and see if I end up at the exit.
 - I’ll assume for now that I know the start point — just want to see if my movement logic works.
+
+
+## 3:15PM
+- Cool, simulate works!
+- Now I want a top-level entry point, like find_exit(Map, Actions)
+- If I give it a list of Actions, it should tell me if those lead to the exit.
+- But if I leave Actions unbound, I want it to search for a valid sequence using DFS.
+- Not gonna worry about infinite loops yet, just getting something that works.
+- Took me 10 minutes because I forgot find_symbol returns Row/Col, not a coord/2 structure. lol
+- Also forgot i don't need to check for the start in `simulate` so i had to change the structure of it a bit

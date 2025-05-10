@@ -56,9 +56,7 @@ safe_move(Map, Pos, Action, NextPos) :-
 %
 % Base case: If on exit then you leave
 simulate(Map, Pos, [], exit) :-
-    cell(Map, Pos, e),
-    cell(Map, Pos, s). %% For checking if we return back to the start
-
+    cell(Map, Pos, e).
 simulate(Map, Pos, [], noexit) :-
     cell(Map, Pos, V),
     V \= e.
@@ -67,3 +65,14 @@ simulate(Map, Pos, [], noexit) :-
 simulate(Map, Pos, [A|AS], Result) :-
     safe_move(Map, Pos, A, NextPos),
     simulate(Map, NextPos, AS, Result).
+
+find_exit(Map, Actions) :-
+    find_symbol(Map, s, Row, Col),
+    ( nonvar(Actions) ->  % run simulation
+        simulate(Map, (Row,Col), Actions, exit)
+    ;   % if Actions is unbound, search for a working path
+        search_actions(Map, (Row,Col), [], Actions)
+    ;
+        % if the action is bound we'll try to find the other symbols %%
+        simulate(Map, (Row, Col), Actions, other) %% simulating the other symbols
+    ).
