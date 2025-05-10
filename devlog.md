@@ -56,3 +56,8 @@ I need to write a bounds checker too. Otherwise Prolog just fails silently or cr
 - Next: Need to combine move/3, in_bounds/2, and cell/3 to make a safe_move/4 that only lets you move into valid non-wall tiles.
 
 - After that, maybe a simulate function that goes through a list of actions?
+
+## 2:50
+- Ok so I’ve got safe movement and basic map bounds checks.
+- Now I want to simulate moving through a list of actions. Like simulate([up, right, right]) and see if I end up at the exit.
+- I’ll assume for now that I know the start point — just want to see if my movement logic works.

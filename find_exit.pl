@@ -25,16 +25,20 @@ i need to figure out how to do DFS
 
 % these are the moves, but i don't understand how to actualyl move through the maze.
 % Movement rules using coord(Row, Col) representation
-move(left,  coord(R,C), coord(R, C1)) :- C1 is C - 1.
-move(right, coord(R,C), coord(R, C1)) :- C1 is C + 1.
-move(up,    coord(R,C), coord(R1, C)) :- R1 is R - 1.
-move(down,  coord(R,C), coord(R1, C)) :- R1 is R + 1.
+move(left,coord(R,C),coord(R, C1)) :- C1 is C - 1.
+move(right,coord(R,C),coord(R, C1)) :- C1 is C + 1.
+move(up, coord(R,C),coord(R1, C)) :- R1 is R - 1.
+move(down, coord(R,C),coord(R1, C)) :- R1 is R + 1.
 
 % Retrieve cell value from a 2D map
 cell(Map, coord(R, C), Value) :-
     nth0(R, Map, Row),
     nth0(C, Row, Value).
-
+% THIS IS SO PAINFUL WHYYYYYYYYYYYYY
+% i should've done this earlier lmao
+% it's ok prolog is kind of a cool language once you get the hang of it
+% but there are so many weird conventions. Like I guess we just know that Map exists...?
+% 
 % Check if a coordinate is within bounds of the maze
 in_bounds(Map, coord(R, C)) :-
     R >= 0,
@@ -48,3 +52,18 @@ safe_move(Map, Pos, Action, NextPos) :-
     in_bounds(Map, NextPos),
     cell(Map, NextPos, V),
     V \= w.  % w = wall
+
+%
+% Base case: If on exit then you leave
+simulate(Map, Pos, [], exit) :-
+    cell(Map, Pos, e),
+    cell(Map, Pos, s). %% For checking if we return back to the start
+
+simulate(Map, Pos, [], noexit) :-
+    cell(Map, Pos, V),
+    V \= e.
+
+% Step case
+simulate(Map, Pos, [A|AS], Result) :-
+    safe_move(Map, Pos, A, NextPos),
+    simulate(Map, NextPos, AS, Result).
