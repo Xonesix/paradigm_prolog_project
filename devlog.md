@@ -28,3 +28,31 @@
 
 ## 1:13PM 
 - I think i figured out some moves but I don't know how to apply this into the maze...
+
+
+## 1:50 PM
+- I added a move code with directions left, right, up, and down. Just trying to understand how movement will work in a 2D grid.
+
+- Using coord(R, C) to represent positions. Looks readable.
+
+- I think my first bug is that there's no way to check if we're inside the bounds of the maze.
+
+- Also not sure how I'm supposed to access the maze. Right now it's not even passed as a parameter, so not testable.
+
+## 2:10
+- Added a basic cell/3 function that takes the Map, a coordinate, and returns the value at that position.
+
+Map will be represented as a list of lists (row major).
+
+Tried writing cell(M, coord(R,C), V) using nth0. It throws an error when the index is out of bounds.
+
+I need to write a bounds checker too. Otherwise Prolog just fails silently or crashes.
+
+## 2:25 PM
+- Added in_bounds/2. It checks that the row and column are within the list bounds.
+
+- Tested with some dummy maps; it seems to work.
+
+- Next: Need to combine move/3, in_bounds/2, and cell/3 to make a safe_move/4 that only lets you move into valid non-wall tiles.
+
+- After that, maybe a simulate function that goes through a list of actions?
