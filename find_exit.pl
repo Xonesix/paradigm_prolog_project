@@ -21,3 +21,10 @@ IF I CAN IMPLEMENT DFS INTO PROLOG AND STOP WHEN I FIND THE EXIT
 AND BACKTRACK THE COORDINATES I CAN SOLVE THE MAZE
 i need to figure out how to do DFS
 */
+
+
+% these are the moves, but i don't understand how to actualyl move through the maze.
+move(left,  coord(R,C), coord(R, C1)) :- C1 is C-1.
+move(right, coord(R,C), coord(R, C1)) :- C1 is C+1.
+move(up,    coord(R,C), coord(R1, C)) :- R1 is R-1.
+move(down,  coord(R,C), coord(R1, C)) :- R1 is R+1.

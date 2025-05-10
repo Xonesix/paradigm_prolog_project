@@ -18,3 +18,10 @@
 - If right blocked go up.
 - Repeat until maze solved?
 - Totally brute force but i don't have that much time and it should solve it for me
+
+
+## 1:00PM
+- After some research I realized that it's just DFS in prolog
+- and we have like an adjacency matrix
+- So so far my algorithm will be like this
+- DFS -> find exit -> backtrack steps. -> answer in A
