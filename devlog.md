@@ -25,3 +25,6 @@
 - and we have like an adjacency matrix
 - So so far my algorithm will be like this
 - DFS -> find exit -> backtrack steps. -> answer in A
+
+## 1:13PM 
+- I think i figured out some moves but I don't know how to apply this into the maze...
