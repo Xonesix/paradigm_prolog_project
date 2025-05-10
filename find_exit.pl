@@ -72,7 +72,14 @@ find_exit(Map, Actions) :-
         simulate(Map, (Row,Col), Actions, exit)
     ;   % if Actions is unbound, search for a working path
         search_actions(Map, (Row,Col), [], Actions)
-    ;
-        % if the action is bound we'll try to find the other symbols %%
-        simulate(Map, (Row, Col), Actions, other) %% simulating the other symbols
     ).
+
+% DFS search for an action sequence leading to the exit
+search_actions(Map, Pos, Visited, []) :-
+    cell(Map, Pos, e).
+
+search_actions(Map, Pos, Visited, [A|AS]) :-
+    member(A, [up, down, left, right]),
+    safe_move(Map, Pos, A, NextPos),
+    \+ member(NextPos, Visited),
+    search_actions(Map, NextPos, [NextPos|Visited], AS).

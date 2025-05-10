@@ -71,3 +71,12 @@ I need to write a bounds checker too. Otherwise Prolog just fails silently or cr
 - Not gonna worry about infinite loops yet, just getting something that works.
 - Took me 10 minutes because I forgot find_symbol returns Row/Col, not a coord/2 structure. lol
 - Also forgot i don't need to check for the start in `simulate` so i had to change the structure of it a bit
+
+
+## 5:30PM
+- Wrote the DFS-style search.
+- It recursively tries all directions, skips visited nodes, and builds up a list of actions.
+- Crude but surprisingly works.
+Bugs hit:  
+- First I accidentally added the wrong position to the visited list — it was Pos not NextPos.
+- Then I realized that if you allow infinite recursion, it never terminates on bad mazes.
