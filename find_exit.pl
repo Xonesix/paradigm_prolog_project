@@ -66,6 +66,25 @@ simulate(Map, Pos, [A|AS], Result) :-
     move_safe_if_bound(Map, Pos, A, NextPos),
     simulate(Map, NextPos, AS, Result).
 
+% defenitely needed a helper function for seeing the path and backtracking
+replay_path(Map, (R,C), [], [(R,C)]).
+replay_path(Map, (R,C), [A|AS], [(R,C)|Path]) :-
+    move_safe_if_bound(Map, (R,C), A, Next),
+    replay_path(Map, Next, AS, Path).
+
+% printing path
+print_path(Map, PathCoords) :-
+    length(Map, Rows),
+    nth0(0, Map, FirstRow),
+    length(FirstRow, Cols),
+    forall(between(0, Rows-1, R),
+        (forall(between(0, Cols-1, C),
+            ( (member((R,C), PathCoords) -> write('*') ;
+               cell(Map, (R,C), V), write(V))),
+         nl))
+    ).
+
+
 find_exit(Map, Actions) :-
     find_symbol(Map, s, Row, Col),
     ( nonvar(Actions) ->

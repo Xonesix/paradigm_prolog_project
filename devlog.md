@@ -101,3 +101,8 @@ Maybe a pretty printer or just showing the coordinates visited.
     - Or… simpler: print the path once found.
 - I'm gonna try to add `write(Actions)` temporarily after `find_exit/2` finds a path.
 - Refactor safe_move into move_safe_in_bound for more clarity
+
+
+## 12:20PM
+- printing looks ok but debugging this is a pain
+- try to make path look better
