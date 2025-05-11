@@ -106,3 +106,19 @@ Maybe a pretty printer or just showing the coordinates visited.
 ## 12:20PM
 - printing looks ok but debugging this is a pain
 - try to make path look better
+
+
+## 12:45
+- Now need find_exit to show result all the time. In ase no path's found.
+- refactoring find_exit
+
+
+## 1:50PM
+- I finally finished the example run. There were a few bugs to work out.
+- But I think that I worked it out in the end. 
+- Overall O have to say, this Prolog language was one of the lamest things I'd ever done. It requires such a different way of thinking, and I think that something like a Java/C++ Depth First Search would've been so much easier and literally like 20 lines of code compared to the ridiculous amount of problem solving done for this.
+- I think it's unique, that's about the only compliment I can give this language. 
+- I don't understand why we would ever use prolog for anything besides the "mathematical proofs" side of things. Overly complex, you can put hours of work into it to get maybe 20% of the results you can get from a language like C. Thankfully, the language has a low usage rate beacause I couldn't be bothered to actually try to code real problems in it.
+- THat's enough with my rant, but this project took so much out of me. 
+- Hours of time put into something I could've put a simple DFS algorithm into.
+- What ever it is what it is.
