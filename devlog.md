@@ -80,3 +80,13 @@ I need to write a bounds checker too. Otherwise Prolog just fails silently or cr
 Bugs hit:  
 - First I accidentally added the wrong position to the visited list — it was Pos not NextPos.
 - Then I realized that if you allow infinite recursion, it never terminates on bad mazes.
+
+
+# May 11th 2025
+## 11:00AM
+- Ok so the DFS works…
+- But now I want to make it not get stuck on impossible mazes.
+- Infinite loops suck, and right now, search_actions just goes forever if there’s no exit.
+- Plan: Add a depth limit to the DFS to cap recursion.
+- Forgot to decrement depth → infinite loop still happened :( 
+- Used same predicate name for both arities, which broke things

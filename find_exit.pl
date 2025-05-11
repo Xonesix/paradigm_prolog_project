@@ -68,18 +68,20 @@ simulate(Map, Pos, [A|AS], Result) :-
 
 find_exit(Map, Actions) :-
     find_symbol(Map, s, Row, Col),
-    ( nonvar(Actions) ->  % run simulation
+    ( nonvar(Actions) ->
         simulate(Map, (Row,Col), Actions, exit)
-    ;   % if Actions is unbound, search for a working path
-        search_actions(Map, (Row,Col), [], Actions)
+    ;   MaxDepth = 100,  % arbitrary depth cap
+        search_actions(Map, (Row,Col), [], Actions, MaxDepth)
     ).
 
-% DFS search for an action sequence leading to the exit
-search_actions(Map, Pos, Visited, []) :-
+% Overloaded search_actions with a depth limit
+search_actions(Map, Pos, Visited, [], 0) :- 
     cell(Map, Pos, e).
 
-search_actions(Map, Pos, Visited, [A|AS]) :-
+search_actions(Map, Pos, Visited, [A|AS], Depth) :-
+    Depth > 0,
     member(A, [up, down, left, right]),
     safe_move(Map, Pos, A, NextPos),
     \+ member(NextPos, Visited),
-    search_actions(Map, NextPos, [NextPos|Visited], AS).
+    D1 is Depth - 1,
+    search_actions(Map, NextPos, [NextPos|Visited], AS, D1).
