@@ -47,7 +47,7 @@ in_bounds(Map, coord(R, C)) :-
     nth0(C, Row, _).     % will fail if C is out of bounds
 
 % Only allow movement into bounds and non-wall cells
-safe_move(Map, Pos, Action, NextPos) :-
+move_safe_if_bound(Map, Pos, Action, NextPos) :-
     move(Action, Pos, NextPos),
     in_bounds(Map, NextPos),
     cell(Map, NextPos, V),
@@ -63,16 +63,18 @@ simulate(Map, Pos, [], noexit) :-
 
 % Step case
 simulate(Map, Pos, [A|AS], Result) :-
-    safe_move(Map, Pos, A, NextPos),
+    move_safe_if_bound(Map, Pos, A, NextPos),
     simulate(Map, NextPos, AS, Result).
 
 find_exit(Map, Actions) :-
     find_symbol(Map, s, Row, Col),
     ( nonvar(Actions) ->
         simulate(Map, (Row,Col), Actions, exit)
-    ;   MaxDepth = 100,  % arbitrary depth cap
-        search_actions(Map, (Row,Col), [], Actions, MaxDepth)
+    ;   MaxDepth = 100, % random depth for checking
+        search_actions(Map, (Row,Col), [], Actions, MaxDepth),
+        write('Found path: '), writeln(Actions)
     ).
+
 
 % Overloaded search_actions with a depth limit
 search_actions(Map, Pos, Visited, [], 0) :- 
@@ -81,7 +83,7 @@ search_actions(Map, Pos, Visited, [], 0) :-
 search_actions(Map, Pos, Visited, [A|AS], Depth) :-
     Depth > 0,
     member(A, [up, down, left, right]),
-    safe_move(Map, Pos, A, NextPos),
+    move_safe_if_bound(Map, Pos, A, NextPos),
     \+ member(NextPos, Visited),
     D1 is Depth - 1,
     search_actions(Map, NextPos, [NextPos|Visited], AS, D1).

@@ -53,7 +53,7 @@ I need to write a bounds checker too. Otherwise Prolog just fails silently or cr
 
 - Tested with some dummy maps; it seems to work.
 
-- Next: Need to combine move/3, in_bounds/2, and cell/3 to make a safe_move/4 that only lets you move into valid non-wall tiles.
+- Next: Need to combine move/3, in_bounds/2, and cell/3 to make a move_safe_if_bound/4 that only lets you move into valid non-wall tiles.
 
 - After that, maybe a simulate function that goes through a list of actions?
 
@@ -90,3 +90,14 @@ Bugs hit:
 - Plan: Add a depth limit to the DFS to cap recursion.
 - Forgot to decrement depth → infinite loop still happened :( 
 - Used same predicate name for both arities, which broke things
+
+
+## 11:55AM
+- Ok now that it doesn’t loop forever, I want better visibility.
+Like, I want to see the solution path when it works.
+Maybe a pretty printer or just showing the coordinates visited.
+- Solution:
+    - Track coordinates instead of just the actions.
+    - Or… simpler: print the path once found.
+- I'm gonna try to add `write(Actions)` temporarily after `find_exit/2` finds a path.
+- Refactor safe_move into move_safe_in_bound for more clarity
